@@ -1,16 +1,16 @@
-# ES6 for Humans
+# İnsanlar için ES6
 
 <br>
 
-:loudspeaker: The complete guide is now available on [Amazon](https://www.amazon.com/ES6-Humans-Latest-Standard-JavaScript/dp/1484226224)
+:loudspeaker: Bu rehberin tamamını [Amazon](https://www.amazon.com/ES6-Humans-Latest-Standard-JavaScript/dp/1484226224) üzerinde bulabilirsiniz.
 
 [![ES6 for humans - Apress book](book-cover.jpg)](https://www.amazon.com/ES6-Humans-Latest-Standard-JavaScript/dp/1484226224)
 
-### Table of Contents
+### İçindekiler
 
-* [`let`, `const` and block scoping](#1-let-const-and-block-scoping)
-* [Arrow Functions](#2-arrow-functions)
-* [Default Function Parameters](#3-default-function-parameters)
+* [`let`, `const` ve blok kapsamları](#1-let-const-ve-blok-kapsamları)
+* [Arrow Fonksiyonlar](#2-arrow-functions)
+* [Varsayılan Fonksiyon Parametreleri](#3-default-function-parameters)
 * [Spread/Rest Operator](#4-spread--rest-operator)
 * [Object Literal Extensions](#5-object-literal-extensions)
 * [Octal and Binary Literals](#6-octal-and-binary-literals)
@@ -18,31 +18,31 @@
 * [super in Objects](#8-super-in-objects)
 * [Template Literal and Delimiters](#9-template-literal-and-delimiters)
 * [for...of vs for...in](#10-forof-vs-forin)
-* [Map and WeakMap](#11-map-and-weakmap)
-* [Set and WeakSet](#12-set-and-weakset)
-* [Classes in ES6](#13-classes-in-es6)
+* [Map ve WeakMap](#11-map-and-weakmap)
+* [Set ve WeakSet](#12-set-and-weakset)
+* [ES6'da sınıflar](#13-classes-in-es6)
 * [Symbol](#14-symbol)
-* [Iterators](#15-iterators)
-* [Generators](#16-generators)
-* [Promises](#17-promises)
+* [Iteratorlar](#15-iterators)
+* [Generatorlar](#16-generators)
+* [Promise'ler](#17-promises)
 
 <br>
 
-### Languages
+### Farklı Dillerde Takip Edin
 
-* [Chinese Version (Thanks to barretlee)](http://www.barretlee.com/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/)
-* [Portuguese Version (Thanks to alexmoreno)](https://github.com/alexmoreno/ES6-para-humanos)
-* [Russian Version (Thanks to etnolover)](https://github.com/etnolover/ES6-for-humans-translation)
-* [Korean Version (Thanks to scarfunk)](https://github.com/metagrover/ES6-for-humans/tree/korean-version)
-* [French Version (Thanks to tnga)](https://github.com/metagrover/ES6-for-humans/tree/french-version)
-* [Spanish Version (Thanks to carletex)](https://github.com/metagrover/ES6-for-humans/tree/spanish-version)
-* [Japanese Version (Thanks to isdh)](https://github.com/metagrover/ES6-for-humans/tree/japanese-version)
+* [Çince Sürüm (barretlee'ye teşekkürler)](http://www.barretlee.com/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/)
+* [Portekizce Sürüm (alexmoreno'ya teşekkürler)](https://github.com/alexmoreno/ES6-para-humanos)
+* [Rusça Sürüm (etnolover'a teşekkürler)](https://github.com/etnolover/ES6-for-humans-translation)
+* [Korece Sürüm (scarfunk'a teşekkürler)](https://github.com/metagrover/ES6-for-humans/tree/korean-version)
+* [Fransızca Sürüm (tnga'a teşekkürler)](https://github.com/metagrover/ES6-for-humans/tree/french-version)
+* [İspanyolca Sürüm Version (carletex'a teşekkürler)](https://github.com/metagrover/ES6-for-humans/tree/spanish-version)
+* [Japonca Sürüm (isdh'a teşekkürler)](https://github.com/metagrover/ES6-for-humans/tree/japanese-version)
 
 <br>
 
-### 1. let, const and block scoping
+### 1. let, const ve blok kapsamları
 
-`let` allows you to create declarations which are bound to any block, called block scoping. Instead of using `var`, which provides function scope, it is recommended to use block scoped variables (`let` or `const`) in ES6.
+`let`, blok kapsamı adı verilen ve herhangi bir bloğa bağlı ifadeler oluşturmanıza izin verir. ES6'da fonksiyon kapsamı sağlayan `var` yerine blok kapsamlı değişkenlerin ya da sabitlerin (`let` veya `const`) kullanılması önerilir.
 
 ```javascript
 var a = 2;
@@ -54,7 +54,7 @@ var a = 2;
 console.log(a); // 2
 ```
 
-Another form of block-scoped declaration is the `const`, which creates constants. In ES6, a `const` represents a constant reference to a value. In other words, `Object`'s and `Array`'s contents may change, only the re-assignment of the variable is prevented. Here's a simple example:
+Blok kapsamlı ifadeler oluşturmanın başka bir yolu, sabitler oluşturan `const` anahtar kelimesidir. ES6'da, `const` ifadesi,sabit bir referansı temsil eder. Başka bir deyişle, `Object` ve `Array`'in içindekiler değişebilir, sadece sabitin yeniden atanması engellenmiştir. Aşağıda basit bir örnek görebiliriz:
 
 ```javascript
 {
@@ -65,18 +65,19 @@ Another form of block-scoped declaration is the `const`, which creates constants
     arr.push(7);
     console.log(arr); // [5,6,7]
     arr = 10; // TypeError: Assignment to constant variable
-    arr[0] = 3; // value is mutable
+    arr[0] = 3; // dizi içerisindeki değerler değişebilir
     console.log(arr); // [3,6,7]
 }
 ```
 
-A few things to keep in mind:
+Bu birkaç şeyi aklınızda tutmanız gerekiyor:
 
-* Hoisting of `let` and `const` vary from the traditional hoisting of variables and functions. Both `let` and `const` are hoisted, but cannot be accessed before their declaration, because of [Temporal Dead Zone](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified)
-* `let` and `const` are scoped to the nearest enclosing block.
-* When using const with fixed strings or values, CAPITAL_CASING might be appropriate (ex: `const PI = 3.14`)
-* `const` has to be defined with its declaration.
-* Always use `const` over `let`, unless you plan on re-assigning the variable.
+* `let` ve `const` değişkenlerinin hoisting işlemleri, fonkisyon ve `var` ile tanımlanmış değişkenlerden daha farklıdır. `let` ve `const` değişkenleri hoist ediliyor, fakat `let` ve `const` değişkenlerinin değerlerini kullanabilmek için, değişken tanımlamanın altında işlemlerimizi yapmamız gerekiyor, aksi taktirde hata verecektir. Konu ile ilgili detaya [buradan](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified) ulaşabilirsiniz.
+
+* `let` ve `const` en yakındaki kod bloğuna göre ayarlanır.
+* Sabit string ve değerler tanımlarken, CAPITAL_CASING kullanılabilir (örneğin: `const PI = 3.14`)
+* `const` kullanırken, sabite değeri, o sabiti tanımlarken atamalıyız.
+* Eğer değişkendeki değeri değiştirmek gibi bir planınız yoksa, her daim `let` yerine `const` kullanın.
 
 <br>
 
